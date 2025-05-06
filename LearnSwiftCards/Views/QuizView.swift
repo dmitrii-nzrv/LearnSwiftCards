@@ -6,41 +6,18 @@ struct QuizView: View {
     @State private var showingAnswer = false
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Classroom background
-                Color.classroomWall
-                    .ignoresSafeArea()
-                
-                // Wooden desk texture at the bottom
-                VStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(Color.woodBrown)
-                        .frame(height: 100)
-                        .overlay(
-                            Rectangle()
-                                .fill(Color(red: 0.65, green: 0.45, blue: 0.25))
-                                .frame(height: 5)
-                                .offset(y: -40)
-                        )
-                        .overlay(
-                            // Wood grain
-                            ForEach(0..<8) { i in
-                                Path { path in
-                                    path.move(to: CGPoint(x: 0, y: CGFloat(i) * 12))
-                                    path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: CGFloat(i) * 12 + 5))
-                                }
-                                .stroke(Color(red: 0.55, green: 0.35, blue: 0.15), lineWidth: 0.5)
-                            }
-                        )
-                }
+        ZStack {
+            // Classroom background
+            Color.classroomWall
                 .ignoresSafeArea()
-                
+            
+            // Content with wooden desk but respecting TabBar
+            VStack(spacing: 0) {
+                // Main content area
                 VStack {
                     if let card = currentCard {
                         FlashCardView(card: card)
-                            .frame(height: 400)
+                            .frame(height: 350)
                         
                         Button(action: {
                             showingAnswer = false
@@ -71,16 +48,41 @@ struct QuizView: View {
                         )
                     }
                 }
+                .padding(.bottom, 10)
+                
+                Spacer()
+                
+                // Wooden desk above TabBar
+                Rectangle()
+                    .fill(Color.woodBrown)
+                    .frame(height: 60)
+                    .overlay(
+                        Rectangle()
+                            .fill(Color(red: 0.65, green: 0.45, blue: 0.25))
+                            .frame(height: 5)
+                            .offset(y: -20)
+                    )
+                    .overlay(
+                        // Wood grain
+                        ForEach(0..<5) { i in
+                            Path { path in
+                                path.move(to: CGPoint(x: 0, y: CGFloat(i) * 12))
+                                path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: CGFloat(i) * 12 + 5))
+                            }
+                            .stroke(Color(red: 0.55, green: 0.35, blue: 0.15), lineWidth: 0.5)
+                        }
+                    )
+                    .padding(.bottom, 55) // Padding for TabBar height
             }
-            .navigationTitle("Quiz Mode")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color.woodDarkBrown, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .onAppear {
-                setupWoodNavigationBar()
-                if currentCard == nil {
-                    currentCard = viewModel.getRandomCard()
-                }
+        }
+        .navigationTitle("Quiz Mode")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color.woodDarkBrown, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .onAppear {
+            setupWoodNavigationBar()
+            if currentCard == nil {
+                currentCard = viewModel.getRandomCard()
             }
         }
     }

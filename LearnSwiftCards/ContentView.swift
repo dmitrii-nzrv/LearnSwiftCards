@@ -12,32 +12,28 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            QuestionListView(viewModel: viewModel)
-                .tabItem {
-                    Label("Questions", systemImage: "list.dash")
-                }
-                .toolbarBackground(.visible, for: .tabBar)
+            NavigationStack {
+                QuestionListView(viewModel: viewModel)
+            }
+            .tabItem {
+                Label("Questions", systemImage: "list.dash")
+            }
             
-            QuizView(viewModel: viewModel)
-                .tabItem {
-                    Label("Quiz", systemImage: "questionmark.circle")
-                }
+            NavigationStack {
+                QuizView(viewModel: viewModel)
+            }
+            .tabItem {
+                Label("Quiz", systemImage: "questionmark.circle")
+            }
         }
         .onAppear {
-            // Set tab bar appearance to look like wood
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor(Color.woodBrown)
-            
-            // Set the tab bar item colors
-            appearance.stackedLayoutAppearance.normal.iconColor = .white
-            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
-            appearance.stackedLayoutAppearance.selected.iconColor = UIColor(red: 1.0, green: 0.9, blue: 0.7, alpha: 1.0)
-            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(red: 1.0, green: 0.9, blue: 0.7, alpha: 1.0)]
-            
-            UITabBar.appearance().standardAppearance = appearance
-            UITabBar.appearance().scrollEdgeAppearance = appearance
+            // Fix tab bar appearance
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithDefaultBackground()
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         }
+        .accentColor(.brown) // Используем коричневый цвет для выбранных вкладок
     }
 }
 
