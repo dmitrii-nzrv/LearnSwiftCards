@@ -5,21 +5,15 @@ struct FlashCardView: View {
     @State private var isFlipped = false
     @State private var degrees: Double = 0
     
-    // Random chalkboard colors
-    private let chalkboardColors: [Color] = [
-        Color(red: 0.1, green: 0.2, blue: 0.1), // Dark green
-        Color(red: 0.05, green: 0.05, blue: 0.2), // Dark blue
-        Color(red: 0.2, green: 0.1, blue: 0.1), // Dark red
-        Color(red: 0.1, green: 0.1, blue: 0.1), // Classic black
-    ]
-    
-    // Generate a random color for this card
+    // Random colors for front and back
     private var frontColor: Color {
-        chalkboardColors.randomElement() ?? Color(red: 0.1, green: 0.1, blue: 0.1)
+        [Color.chalkboardGreen, Color.chalkboardBlue, 
+         Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
     }
     
     private var backColor: Color {
-        chalkboardColors.randomElement() ?? Color(red: 0.1, green: 0.1, blue: 0.1)
+        [Color.chalkboardGreen, Color.chalkboardBlue, 
+         Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
     }
     
     var body: some View {
@@ -79,19 +73,19 @@ struct FlashCardView: View {
             VStack {
                 if isQuestion {
                     Text("Question:")
-                        .font(.custom("Chalkboard SE", size: 16))
+                        .font(.chalkCaption())
                         .foregroundStyle(Color.white.opacity(0.7))
                         .padding(.bottom, 5)
                 } else {
                     Text("Answer:")
-                        .font(.custom("Chalkboard SE", size: 16))
+                        .font(.chalkCaption())
                         .foregroundStyle(Color.white.opacity(0.7))
                         .padding(.bottom, 5)
                 }
                 
                 Text(content)
-                    .font(.custom("Chalkboard SE", size: 22))
-                    .foregroundStyle(.white)
+                    .font(.chalkHeadline())
+                    .foregroundStyle(Color.chalkWhite)
                     .multilineTextAlignment(.center)
                     .shadow(color: .white.opacity(0.5), radius: 1, x: 0.5, y: 0.5)
             }
@@ -99,7 +93,7 @@ struct FlashCardView: View {
             
             // Wooden frame border
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(red: 0.6, green: 0.4, blue: 0.2), lineWidth: 8)
+                .stroke(Color.woodBrown, lineWidth: 8)
                 .shadow(radius: 2)
         }
         .padding()

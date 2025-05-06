@@ -7,19 +7,18 @@ struct QuestionListView: View {
         NavigationStack {
             ZStack {
                 // Classroom background
-                Color(red: 0.95, green: 0.95, blue: 0.9) // Slight off-white for wall color
+                Color.classroomWall
                     .ignoresSafeArea()
                 
                 List {
                     ForEach(viewModel.filteredCards) { card in
                         VStack(alignment: .leading, spacing: 10) {
                             Text(card.question)
-                                .font(.custom("Chalkboard SE", size: 18))
-                                .fontWeight(.bold)
+                                .font(.chalkHeadline())
                                 .foregroundStyle(Color(red: 0.2, green: 0.2, blue: 0.3))
                             
                             Text(card.answer)
-                                .font(.custom("Chalkboard SE", size: 16))
+                                .font(.chalkBody())
                                 .foregroundStyle(Color(red: 0.3, green: 0.3, blue: 0.4))
                         }
                         .padding(.vertical, 6)
@@ -38,18 +37,25 @@ struct QuestionListView: View {
                                     .padding(.horizontal)
                                 )
                         )
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                     }
                 }
                 .scrollContentBackground(.hidden)
+                .listStyle(PlainListStyle())
             }
             .navigationTitle("Questions")
-            .toolbarBackground(Color(red: 0.5, green: 0.3, blue: 0.1), for: .navigationBar)
+            .navigationBarTitleDisplayMode(.large)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(Color.woodDarkBrown, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .searchable(text: $viewModel.searchText, prompt: "Search questions or answers")
             .searchSuggestions {
                 Text("SwiftUI").searchCompletion("SwiftUI")
                 Text("MVVM").searchCompletion("MVVM")
                 Text("Protocol").searchCompletion("protocol")
+            }
+            .onAppear {
+                setupWoodNavigationBar()
             }
         }
     }

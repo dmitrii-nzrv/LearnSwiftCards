@@ -7,18 +7,25 @@
 
 import SwiftUI
 
-enum Gilroy: String {
-    case regular = "Gilroy-Regular"
-    case medium = "Gilroy-Medium"
-    case light = "Gilroy-Light"
-    case bold = "Gilroy-Bold"
-    case semibold = "Gilroy-Semibold"
-}
-
 extension Font {
     
-    static func customfont(_ font: Gilroy, fontSize: CGFloat) -> Font {
-        custom(font.rawValue, size: fontSize)
+   
+    
+    // Chalk fonts
+    static func chalkTitle() -> Font {
+        .custom("Chalkboard SE", size: 22).bold()
+    }
+    
+    static func chalkHeadline() -> Font {
+        .custom("Chalkboard SE", size: 18).bold()
+    }
+    
+    static func chalkBody() -> Font {
+        .custom("Chalkboard SE", size: 16)
+    }
+    
+    static func chalkCaption() -> Font {
+        .custom("Chalkboard SE", size: 14)
     }
 }
 
@@ -69,30 +76,38 @@ extension CGFloat {
 }
 extension Color {
     
-    static var primaryApp: Color {
-        return Color(hex: "53B175")
+    // Chalkboard theme colors
+    static var chalkboardGreen: Color {
+        return Color(red: 0.1, green: 0.2, blue: 0.1)
     }
     
-    static var primaryText: Color {
-        return Color(hex: "030303")
+    static var chalkboardBlue: Color {
+        return Color(red: 0.05, green: 0.05, blue: 0.2)
     }
     
-    static var secondaryText: Color {
-        return Color(hex: "828282")
+    static var chalkboardRed: Color {
+        return Color(red: 0.2, green: 0.1, blue: 0.1)
     }
     
-    static var textTitle: Color {
-        return Color(hex: "7C7C7C")
+    static var chalkboardBlack: Color {
+        return Color(red: 0.1, green: 0.1, blue: 0.1)
     }
     
-    static var placeholder: Color {
-        return Color(hex: "B1B1B1")
+    static var woodBrown: Color {
+        return Color(red: 0.6, green: 0.4, blue: 0.2)
     }
     
-    static var darkGray: Color {
-        return Color(hex: "4C4F4D")
+    static var woodDarkBrown: Color {
+        return Color(red: 0.5, green: 0.3, blue: 0.1)
     }
     
+    static var classroomWall: Color {
+        return Color(red: 0.95, green: 0.95, blue: 0.9)
+    }
+    
+    static var chalkWhite: Color {
+        return Color.white.opacity(0.9)
+    }
     
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: .alphanumerics.inverted)
@@ -118,6 +133,77 @@ extension Color {
             opacity: Double(a) / 255
         )
     }
+}
+
+// Extensions for UI components
+extension View {
+    // Wood button style
+    func woodButtonStyle() -> some View {
+        self
+            .font(.chalkHeadline())
+            .foregroundStyle(.white)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.woodDarkBrown)
+            )
+    }
+    
+    // Chalkboard card style
+    func chalkboardStyle(color: Color? = nil) -> some View {
+        let backgroundColor = color ?? [Color.chalkboardGreen, 
+                                       Color.chalkboardBlue, 
+                                       Color.chalkboardRed, 
+                                       Color.chalkboardBlack].randomElement()!
+        
+        return self
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(backgroundColor)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                    )
+                    .shadow(radius: 5)
+            )
+    }
+    
+    // Notebook paper style
+    func notebookPaperStyle() -> some View {
+        self
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(white: 0.92))
+                    .overlay(
+                        // Notebook lines
+                        VStack(spacing: 16) {
+                            ForEach(0..<5) { _ in
+                                Rectangle()
+                                    .fill(Color.blue.opacity(0.1))
+                                    .frame(height: 1)
+                            }
+                        }
+                        .padding(.horizontal)
+                    )
+            )
+    }
+}
+
+// Setup navigation bar with wood style
+func setupWoodNavigationBar() {
+    let woodColor = UIColor(red: 0.5, green: 0.3, blue: 0.1, alpha: 1.0)
+    let appearance = UINavigationBarAppearance()
+    
+    appearance.configureWithOpaqueBackground()
+    appearance.backgroundColor = woodColor
+    appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+    
+    UINavigationBar.appearance().standardAppearance = appearance
+    UINavigationBar.appearance().compactAppearance = appearance
+    UINavigationBar.appearance().scrollEdgeAppearance = appearance
 }
 
 

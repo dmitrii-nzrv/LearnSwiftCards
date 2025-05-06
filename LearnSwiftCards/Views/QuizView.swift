@@ -9,14 +9,14 @@ struct QuizView: View {
         NavigationStack {
             ZStack {
                 // Classroom background
-                Color(red: 0.95, green: 0.95, blue: 0.9) // Slight off-white for wall color
+                Color.classroomWall
                     .ignoresSafeArea()
                 
                 // Wooden desk texture at the bottom
                 VStack {
                     Spacer()
                     Rectangle()
-                        .fill(Color(red: 0.6, green: 0.4, blue: 0.2))
+                        .fill(Color.woodBrown)
                         .frame(height: 100)
                         .overlay(
                             Rectangle()
@@ -47,32 +47,20 @@ struct QuizView: View {
                             currentCard = viewModel.getRandomCard()
                         }) {
                             Text("Next Card")
-                                .font(.custom("Chalkboard SE", size: 18))
-                                .foregroundStyle(.white)
-                                .padding()
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color(red: 0.5, green: 0.3, blue: 0.1))
-                                )
+                                .woodButtonStyle()
                         }
                         .padding()
                     } else {
                         VStack(spacing: 20) {
                             Text("No cards available")
-                                .font(.custom("Chalkboard SE", size: 24))
+                                .font(.chalkTitle())
                                 .foregroundStyle(Color(red: 0.3, green: 0.3, blue: 0.3))
                             
                             Button(action: {
                                 currentCard = viewModel.getRandomCard()
                             }) {
                                 Text("Start Quiz")
-                                    .font(.custom("Chalkboard SE", size: 18))
-                                    .foregroundStyle(.white)
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color(red: 0.5, green: 0.3, blue: 0.1))
-                                    )
+                                    .woodButtonStyle()
                             }
                         }
                         .padding()
@@ -86,9 +74,10 @@ struct QuizView: View {
             }
             .navigationTitle("Quiz Mode")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color(red: 0.5, green: 0.3, blue: 0.1), for: .navigationBar)
+            .toolbarBackground(Color.woodDarkBrown, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .onAppear {
+                setupWoodNavigationBar()
                 if currentCard == nil {
                     currentCard = viewModel.getRandomCard()
                 }

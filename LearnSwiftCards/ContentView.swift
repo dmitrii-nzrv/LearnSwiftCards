@@ -27,7 +27,7 @@ struct ContentView: View {
             // Set tab bar appearance to look like wood
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 1.0)
+            appearance.backgroundColor = UIColor(Color.woodBrown)
             
             // Set the tab bar item colors
             appearance.stackedLayoutAppearance.normal.iconColor = .white
