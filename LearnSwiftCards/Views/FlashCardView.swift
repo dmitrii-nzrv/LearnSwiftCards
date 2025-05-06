@@ -2,8 +2,14 @@ import SwiftUI
 
 struct FlashCardView: View {
     let card: FlashCard
-    @State private var isFlipped = false
+    @Binding var isFlipped: Bool
     @State private var degrees: Double = 0
+    
+    // For backward compatibility with preview and non-controlled usage
+    init(card: FlashCard, isFlipped: Binding<Bool>? = nil) {
+        self.card = card
+        self._isFlipped = isFlipped ?? .constant(false)
+    }
     
     // Random colors for front and back
     private var frontColor: Color {
@@ -40,6 +46,18 @@ struct FlashCardView: View {
             withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
                 degrees += 180
                 isFlipped.toggle()
+            }
+        }
+        .onChange(of: isFlipped) { newValue in
+            // Update degrees when flipped state changes externally
+            if newValue && degrees.truncatingRemainder(dividingBy: 360) == 0 {
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                    degrees += 180
+                }
+            } else if !newValue && degrees.truncatingRemainder(dividingBy: 360) == 180 {
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                    degrees += 180
+                }
             }
         }
     }

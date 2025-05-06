@@ -3,7 +3,7 @@ import SwiftUI
 struct QuizView: View {
     @ObservedObject var viewModel: FlashCardViewModel
     @State private var currentCard: FlashCard?
-    @State private var showingAnswer = false
+    @State private var isCardFlipped = false
     
     var body: some View {
         ZStack {
@@ -16,12 +16,17 @@ struct QuizView: View {
                 // Main content area
                 VStack {
                     if let card = currentCard {
-                        FlashCardView(card: card)
+                        FlashCardView(card: card, isFlipped: $isCardFlipped)
                             .frame(height: 350)
                         
                         Button(action: {
-                            showingAnswer = false
-                            currentCard = viewModel.getRandomCard()
+                            // Reset flip state and get new card
+                            isCardFlipped = false
+                            
+                            // Small delay to ensure animation completes
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                currentCard = viewModel.getRandomCard()
+                            }
                         }) {
                             Text("Next Card")
                                 .woodButtonStyle()
@@ -34,6 +39,7 @@ struct QuizView: View {
                                 .foregroundStyle(Color(red: 0.3, green: 0.3, blue: 0.3))
                             
                             Button(action: {
+                                isCardFlipped = false
                                 currentCard = viewModel.getRandomCard()
                             }) {
                                 Text("Start Quiz")
