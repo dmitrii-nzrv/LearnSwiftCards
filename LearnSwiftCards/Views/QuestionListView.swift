@@ -6,7 +6,7 @@ struct QuestionListView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.flashCards) { card in
+                ForEach(viewModel.filteredCards) { card in
                     VStack(alignment: .leading, spacing: 6) {
                         Text(card.question)
                             .font(.headline)
@@ -18,6 +18,7 @@ struct QuestionListView: View {
                 }
             }
             .navigationTitle("Questions")
+            .searchable(text: $viewModel.searchText, prompt: "Search questions or answers")
         }
     }
 }
