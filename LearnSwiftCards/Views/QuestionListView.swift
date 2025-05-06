@@ -13,7 +13,6 @@ struct QuestionListView: View {
                         Text(card.answer)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                            .lineLimit(2)
                     }
                     .padding(.vertical, 4)
                 }
