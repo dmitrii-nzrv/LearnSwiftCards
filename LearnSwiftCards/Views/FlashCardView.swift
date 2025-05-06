@@ -9,16 +9,24 @@ struct FlashCardView: View {
         ZStack {
             // Front side (Question)
             cardSide(content: card.question, backgroundColor: Color.blue.opacity(0.7))
-                .rotation3DEffect(.degrees(degrees), axis: (x: 0, y: 1, z: 0))
+                .rotation3DEffect(
+                    .degrees(degrees),
+                    axis: (x: 0, y: 1, z: 0),
+                    perspective: 0.3  // Added perspective to avoid singular matrix
+                )
                 .opacity(isFlipped ? 0 : 1)
             
             // Back side (Answer)
             cardSide(content: card.answer, backgroundColor: Color.green.opacity(0.7))
-                .rotation3DEffect(.degrees(degrees - 180), axis: (x: 0, y: 1, z: 0))
+                .rotation3DEffect(
+                    .degrees(degrees - 180),
+                    axis: (x: 0, y: 1, z: 0),
+                    perspective: 0.3  // Added perspective to avoid singular matrix
+                )
                 .opacity(isFlipped ? 1 : 0)
         }
         .onTapGesture {
-            withAnimation(.easeInOut(duration: 0.5)) {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
                 degrees += 180
                 isFlipped.toggle()
             }
