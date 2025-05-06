@@ -16,11 +16,27 @@ struct ContentView: View {
                 .tabItem {
                     Label("Questions", systemImage: "list.dash")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
             
             QuizView(viewModel: viewModel)
                 .tabItem {
                     Label("Quiz", systemImage: "questionmark.circle")
                 }
+        }
+        .onAppear {
+            // Set tab bar appearance to look like wood
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 1.0)
+            
+            // Set the tab bar item colors
+            appearance.stackedLayoutAppearance.normal.iconColor = .white
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+            appearance.stackedLayoutAppearance.selected.iconColor = UIColor(red: 1.0, green: 0.9, blue: 0.7, alpha: 1.0)
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(red: 1.0, green: 0.9, blue: 0.7, alpha: 1.0)]
+            
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
         }
     }
 }
