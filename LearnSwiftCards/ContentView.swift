@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = FlashCardViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            QuestionListView(viewModel: viewModel)
+                .tabItem {
+                    Label("Questions", systemImage: "list.dash")
+                }
+            
+            QuizView(viewModel: viewModel)
+                .tabItem {
+                    Label("Quiz", systemImage: "questionmark.circle")
+                }
         }
-        .padding()
     }
 }
 
