@@ -30,7 +30,6 @@ extension Font {
 }
 
 extension CGFloat {
-    
     static var screenWidth: Double {
         return UIScreen.main.bounds.size.width
     }

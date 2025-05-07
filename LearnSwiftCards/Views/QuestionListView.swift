@@ -49,11 +49,7 @@ struct QuestionListView: View {
             .toolbarBackground(Color.woodDarkBrown, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .searchable(text: $viewModel.searchText, prompt: "Search questions or answers")
-            .searchSuggestions {
-                Text("SwiftUI").searchCompletion("SwiftUI")
-                Text("MVVM").searchCompletion("MVVM")
-                Text("Protocol").searchCompletion("protocol")
-            }
+           
             .onAppear {
                 setupWoodNavigationBar()
             }

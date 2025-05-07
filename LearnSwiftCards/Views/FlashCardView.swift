@@ -48,7 +48,7 @@ struct FlashCardView: View {
                 isFlipped.toggle()
             }
         }
-        .onChange(of: isFlipped) { newValue in
+        .onChange(of: isFlipped) { oldValue, newValue in
             // Update degrees when flipped state changes externally
             if newValue && degrees.truncatingRemainder(dividingBy: 360) == 0 {
                 withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
