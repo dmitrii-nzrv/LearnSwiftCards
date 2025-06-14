@@ -5,27 +5,10 @@ struct FlashCardView: View {
     @Binding var isFlipped: Bool
     @State private var degrees: Double = 0
     
-    // For backward compatibility with preview and non-controlled usage
-    init(card: FlashCard, isFlipped: Binding<Bool>? = nil) {
-        self.card = card
-        self._isFlipped = isFlipped ?? .constant(false)
-    }
-    
-    // Random colors for front and back
-    private var frontColor: Color {
-        [Color.chalkboardGreen, Color.chalkboardBlue, 
-         Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
-    }
-    
-    private var backColor: Color {
-        [Color.chalkboardGreen, Color.chalkboardBlue, 
-         Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
-    }
-    
     var body: some View {
         ZStack {
             // Front side (Question)
-            cardSide(content: card.question, backgroundColor: frontColor, isQuestion: true)
+            cardSide(content: card.question, backgroundColor: .frontColor, isQuestion: true)
                 .rotation3DEffect(
                     .degrees(degrees),
                     axis: (x: 0, y: 1, z: 0),
@@ -34,7 +17,7 @@ struct FlashCardView: View {
                 .opacity(isFlipped ? 0 : 1)
             
             // Back side (Answer)
-            cardSide(content: card.answer, backgroundColor: backColor, isQuestion: false)
+            cardSide(content: card.answer, backgroundColor: .backColor, isQuestion: false)
                 .rotation3DEffect(
                     .degrees(degrees - 180),
                     axis: (x: 0, y: 1, z: 0),
@@ -118,6 +101,6 @@ struct FlashCardView: View {
     }
 }
 
-#Preview {
-    FlashCardView(card: FlashCard.sampleData[0])
-} 
+//#Preview {
+//    FlashCardView(card: FlashCard.sampleData[0])
+//} 

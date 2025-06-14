@@ -74,6 +74,15 @@ extension CGFloat {
     }
 }
 extension Color {
+     static var frontColor: Color {
+        [Color.chalkboardGreen, Color.chalkboardBlue,
+         Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
+    }
+    
+     static var backColor: Color {
+        [Color.chalkboardGreen, Color.chalkboardBlue,
+         Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
+    }
     
     // Chalkboard theme colors
     static var chalkboardGreen: Color {
@@ -206,4 +215,12 @@ func setupWoodNavigationBar() {
 }
 
 
+private var frontColor: Color {
+    [Color.chalkboardGreen, Color.chalkboardBlue,
+     Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
+}
 
+private var backColor: Color {
+    [Color.chalkboardGreen, Color.chalkboardBlue,
+     Color.chalkboardRed, Color.chalkboardBlack].randomElement()!
+}

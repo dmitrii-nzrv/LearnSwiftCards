@@ -19,15 +19,7 @@ struct QuizView: View {
                         FlashCardView(card: card, isFlipped: $isCardFlipped)
                             .frame(height: 350)
                         
-                        Button(action: {
-                            // Reset flip state and get new card
-                            isCardFlipped = false
-                            
-                            // Small delay to ensure animation completes
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                currentCard = viewModel.getRandomCard()
-                            }
-                        }) {
+                        Button(action: nextCard) {
                             Text("Next Card")
                                 .woodButtonStyle()
                         }
@@ -38,10 +30,7 @@ struct QuizView: View {
                                 .font(.chalkTitle())
                                 .foregroundStyle(Color(red: 0.3, green: 0.3, blue: 0.3))
                             
-                            Button(action: {
-                                isCardFlipped = false
-                                currentCard = viewModel.getRandomCard()
-                            }) {
+                            Button(action: startQuiz) {
                                 Text("Start Quiz")
                                     .woodButtonStyle()
                             }
@@ -59,25 +48,7 @@ struct QuizView: View {
                 Spacer()
                 
                 // Wooden desk above TabBar
-                Rectangle()
-                    .fill(Color.woodBrown)
-                    .frame(height: 60)
-                    .overlay(
-                        Rectangle()
-                            .fill(Color(red: 0.65, green: 0.45, blue: 0.25))
-                            .frame(height: 5)
-                            .offset(y: -20)
-                    )
-                    .overlay(
-                        // Wood grain
-                        ForEach(0..<5) { i in
-                            Path { path in
-                                path.move(to: CGPoint(x: 0, y: CGFloat(i) * 12))
-                                path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: CGFloat(i) * 12 + 5))
-                            }
-                            .stroke(Color(red: 0.55, green: 0.35, blue: 0.15), lineWidth: 0.5)
-                        }
-                    )
+                WoodenSurface()
                     .padding(.bottom, 55) // Padding for TabBar height
             }
         }
@@ -91,6 +62,18 @@ struct QuizView: View {
                 currentCard = viewModel.getRandomCard()
             }
         }
+    }
+    
+    private func nextCard() {
+        isCardFlipped = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            currentCard = viewModel.getRandomCard()
+        }
+    }
+    
+    private func startQuiz() {
+        isCardFlipped = false
+        currentCard = viewModel.getRandomCard()
     }
 }
 
