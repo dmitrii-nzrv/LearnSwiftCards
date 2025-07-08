@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct FlashCardView: View {
+    // MARK: ~ Properties
     let card: FlashCard
     @Binding var isFlipped: Bool
     @State private var degrees: Double = 0
     
+    // MARK: ~ Body
     var body: some View {
         ZStack {
             // Front side (Question)
@@ -100,7 +102,3 @@ struct FlashCardView: View {
         .padding()
     }
 }
-
-//#Preview {
-//    FlashCardView(card: FlashCard.sampleData[0])
-//} 

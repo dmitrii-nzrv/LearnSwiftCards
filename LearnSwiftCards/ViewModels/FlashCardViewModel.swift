@@ -2,9 +2,11 @@ import Foundation
 import SwiftUI
 
 class FlashCardViewModel: ObservableObject {
+    // MARK: ~ Properties
     @Published var flashCards: [FlashCard]
     @Published var searchText: String = ""
     
+    // MARK: ~ Init
     init(flashCards: [FlashCard] = FlashCard.sampleData) {
         self.flashCards = flashCards
     }

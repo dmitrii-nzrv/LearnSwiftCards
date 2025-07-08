@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MainView: View {
+    // MARK: ~ Properties
     @StateObject private var viewModel = FlashCardViewModel()
     
+    // MARK: ~ Body
     var body: some View {
         TabView {
             NavigationStack {
@@ -35,8 +37,4 @@ struct MainView: View {
         }
         .accentColor(.brown) // Используем коричневый цвет для выбранных вкладок
     }
-}
-
-#Preview {
-    MainView()
 }

@@ -7,10 +7,8 @@
 
 import SwiftUI
 
+// MARK: ~ Font extensions
 extension Font {
-    
-   
-    
     // Chalk fonts
     static func chalkTitle() -> Font {
         .custom("Chalkboard SE", size: 22).bold()
@@ -29,6 +27,7 @@ extension Font {
     }
 }
 
+// MARK: ~ CGFloat extensions
 extension CGFloat {
     static var screenWidth: Double {
         return UIScreen.main.bounds.size.width
@@ -73,6 +72,8 @@ extension CGFloat {
             .safeAreaInsets
     }
 }
+
+// MARK: ~ Color extensions
 extension Color {
      static var frontColor: Color {
         [Color.chalkboardGreen, Color.chalkboardBlue,
@@ -117,6 +118,7 @@ extension Color {
         return Color.white.opacity(0.9)
     }
     
+    // MARK: ~ Hex color init
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: .alphanumerics.inverted)
         var int: UInt64 = 0
@@ -143,6 +145,7 @@ extension Color {
     }
 }
 
+// MARK: ~ UI extensions
 // Extensions for UI components
 extension View {
     // Wood button style
@@ -159,10 +162,10 @@ extension View {
     
     // Chalkboard card style
     func chalkboardStyle(color: Color? = nil) -> some View {
-        let backgroundColor = color ?? [Color.chalkboardGreen, 
-                                       Color.chalkboardBlue, 
-                                       Color.chalkboardRed, 
-                                       Color.chalkboardBlack].randomElement()!
+        let backgroundColor = color ?? [Color.chalkboardGreen,
+                                        Color.chalkboardBlue,
+                                        Color.chalkboardRed,
+                                        Color.chalkboardBlack].randomElement()!
         
         return self
             .padding()

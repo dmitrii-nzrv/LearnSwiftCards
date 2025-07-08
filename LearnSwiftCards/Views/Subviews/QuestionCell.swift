@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct QuestionCell: View {
+    // MARK: ~ Properties
     let card: FlashCard
     
+    // MARK: ~ Body
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(card.question)

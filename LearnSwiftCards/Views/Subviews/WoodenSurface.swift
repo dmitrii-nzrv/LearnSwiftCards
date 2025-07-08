@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct WoodenSurface: View {
+    
+    // MARK: ~ Body
     var body: some View {
         Rectangle()
             .fill(Color.woodBrown)
@@ -24,6 +26,3 @@ struct WoodenSurface: View {
     }
 } 
 
-#Preview {
-    WoodenSurface()
-}

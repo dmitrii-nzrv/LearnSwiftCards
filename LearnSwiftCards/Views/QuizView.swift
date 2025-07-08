@@ -1,17 +1,19 @@
 import SwiftUI
 
 struct QuizView: View {
+    // MARK: ~ Properties
     @ObservedObject var viewModel: FlashCardViewModel
     @State private var currentCard: FlashCard?
     @State private var isCardFlipped = false
     
+    // MARK: ~ Body
     var body: some View {
         ZStack {
             // Classroom background
             Color.classroomWall
                 .ignoresSafeArea()
             
-            // Content with wooden desk but respecting TabBar
+            // Content with wooden desk 
             VStack(spacing: 0) {
                 // Main content area
                 VStack {

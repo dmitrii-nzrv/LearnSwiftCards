@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct QuestionListView: View {
+    // MARK: ~ Properties
     @ObservedObject var viewModel: FlashCardViewModel
     
+    // MARK: ~ Body
     var body: some View {
         NavigationStack {
             ZStack {
@@ -31,6 +33,3 @@ struct QuestionListView: View {
     }
 }
 
-#Preview {
-    QuestionListView(viewModel: FlashCardViewModel())
-} 

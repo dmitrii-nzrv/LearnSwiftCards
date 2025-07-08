@@ -1,10 +1,12 @@
 import Foundation
 
 struct FlashCard: Identifiable {
+    // MARK: ~ Properties
     let id = UUID()
     let question: String
     let answer: String
     
+    // MARK: ~ Questions
     // Sample data
     static let sampleData = [
         FlashCard(question: "What is SwiftUI?", answer: "A declarative framework for building user interfaces across Apple platforms"),
